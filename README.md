@@ -6,14 +6,18 @@ This application was created for Udacity's Front End Development Nanodegree proj
 
 One major project goal was to utilize webpack to bundle the code and assets. This done by installing webpack through the node package manager and the requiring it in the config document.
 
-`npm install webpack`
+```
+npm install webpack
 
-`const webpack = require('webpack');`
+const webpack = require('webpack');
+
+```
 
 Installing loaders--code that transforms and manages code--is fairly straightforward. One key learning is ensuring that the url-loader and file-loader don't point to the same file type. I had to separate PNGs to ensure they would appear.
 
-`
+```
 test: /\.(jpg|gif)$/i,
+
 use: [
     {
         loader: 'url-loader',
@@ -22,9 +26,10 @@ use: [
         }
     }
 ]
-`
 
-`
+```
+
+```
 test: /\.(png|jpe?g|gif)$/i,
                 exclude: /node_modules/,
                 loader: 'file-loader',
@@ -33,7 +38,7 @@ test: /\.(png|jpe?g|gif)$/i,
                       outputPath: 'assets/',
                       // publicPath: '/'
                 }
-`
+```
 
 ## Alyien API
 
@@ -43,16 +48,16 @@ Another goals was to ensure that the app could get sentiment analysis data from 
 
 API credentials were placed into a hidden .env file to ensure security.
 
-`
+```
 const textapi = new AYLIENTextAPI ({
     application_id: process.env.ALYIEN_ID,
     application_key: process.env.ALYIEN_KEY
 });
-`
+```
 
 Because the Alyien data lies in a key, `sentiment`, with a function value a callback function is needed to retrieve the data and send it back to the user from the POST request.
 
-`
+```
  textapi.sentiment (
                 {
                   'url' : userText
@@ -67,24 +72,25 @@ Because the Alyien data lies in a key, `sentiment`, with a function value a call
                     }
                 }
         );
-`
+```
 
 
 ## Service Workers
 
 Per Udacity requirements, the app needed to run offline via Service Workers. The Workbox plugin from webpack.
 
-`npm install workbox-webpack-plugin --save-dev`
+```
+npm install workbox-webpack-plugin --save-dev
 
-`new WorkboxPlugin.GenerateSW({
+new WorkboxPlugin.GenerateSW({
                 clientsClaim: true,
                 skipWaiting: true,
         })
-`
+```
 
 The plugin required this snippet in the main app js to register the Service Worker with the browser for offline use:
 
-`
+```
 if ('serviceWorker' in navigator) {		
 		window.addEventListener('load', () => {	
 				navigator.serviceWorker.register('/service-worker.js').then(registration => {	
@@ -94,7 +100,7 @@ if ('serviceWorker' in navigator) {
 				});
 		});
 }
-`
+```
 
 
 ## JEST testing
@@ -104,7 +110,7 @@ The last leg of the project required that the app's JS was tested. This involved
 The difficult part was designing the tests for local use. To do this, the app relied on a mock server and API.
 
 
-`
+```
 const textapi = {
 		'sentiment': function (url, answer) {
 				if (url.url == goodURL) {
@@ -115,9 +121,9 @@ const textapi = {
 				}			
 		}
 };
-`
+```
 
-`
+```
 // Mock fetch to simulate server
 
 const mockFetch = (url) => {
@@ -138,4 +144,4 @@ const mockFetch = (url) => {
 			  	);
 		}
 }
-`
+```
