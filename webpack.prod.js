@@ -14,7 +14,7 @@ module.exports = {
             contentBase: './dist',
             compress: true,
             open: 'Google Chrome',
-            port: 1234
+            port: 8080
             },
     module: {
         rules: [
