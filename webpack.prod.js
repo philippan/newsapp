@@ -1,6 +1,6 @@
 const path = require('path');
 const webpack = require('webpack');
-const compiler = webpack(require('./webpack.dev.js'));
+const compiler = webpack(require('./webpack.prod.js'));
 const WorkboxPlugin = require('workbox-webpack-plugin');
 const HtmlWebPackPlugin = require("html-webpack-plugin");
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');

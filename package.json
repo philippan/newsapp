@@ -5,9 +5,9 @@
   "scripts": {
     "test": "jest",
     "watch": "webpack --watch",
-    "start": "webpack --config webpack.prod.js --open",
+    "start": "node src/server/index.js",
+    "postinstall": "npm run build-prod",
     "server": "node src/server/index.js",
-    "heroku-prebuild": "npm install --dev",
     "build": "webpack --config webpack.prod.js",
     "build-prod": "webpack --config webpack.prod.js",
     "build-dev": "webpack-dev-server  --config webpack.dev.js --open"

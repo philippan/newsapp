@@ -4,6 +4,7 @@ const webpackDevMiddleware = require('webpack-dev-middleware');
 const app = express();
 const config = require('../../webpack.dev.js');
 const compiler = webpack(config);
+const port = process.env.PORT || 8080;
 const getLogger = require('webpack-log');
 const log = getLogger({ name: 'webpack-batman' });
 
@@ -32,15 +33,11 @@ const cors = require('cors');
 
 app.use (cors());
 
-
+app.use(express.static(__dirname));
 
 // Express port
 
-app.listen(1234, function () {
-    
-    //console.log('You got served on port 1234! Served, served, served...etc');
-
-})
+app.listen(port);
 
 
 // Hook up Aylien Sentiment API
